@@ -1,33 +1,34 @@
-export default class ListaDeTarefas {
+const { Tarefa } = require('./Tarefa');
+
+class ListaDeTarefas {
     constructor() {
-      this.tarefas = [];
+        this.tarefas = [];
     }
-  
-    adicionarTarefa(tarefa) {
-      this.tarefas.push(tarefa);
+    
+    // Adicionar tarefa
+    adicionarTarefa(textoTarefa) {
+        this.tarefas.push(new Tarefa(textoTarefa));
     }
-  
-    removerTarefa(indice) {
-      this.tarefas.splice(indice, 1);
+
+    // Marcar tarefa como concluída
+    marcarTarefaConcluida(indice) {
+        if (indice >= 0 && indice < this.tarefas.length) {
+            this.tarefas[indice].concluida = true;
+        }
     }
-  
-    atualizarTarefas() {
-      const listaDeTarefas = document.getElementById('taskList');
-      listaDeTarefas.innerHTML = '';
-  
-      this.tarefas.forEach((tarefa, indice) => {
-        const itemLista = document.createElement('li');
-        itemLista.textContent = tarefa.descricao;
-  
-        const botaoRemover = document.createElement('button');
-        botaoRemover.textContent = 'Remover';
-        botaoRemover.addEventListener('click', () => {
-          this.removerTarefa(indice);
-          this.atualizarTarefas();
-        });
-  
-        itemLista.appendChild(botaoRemover);
-        listaDeTarefas.appendChild(itemLista);
-      });
+
+// Remover tarefa da lista
+removerTarefa(indice) {
+    if (indice >= 0 && indice < this.tarefas.length) {
+        this.tarefas.splice(indice, 1);
     }
-  }
+}
+
+// Visualizar a lista de tarefas
+visualizarTarefas() {
+    return this.tarefas;
+}
+
+ }
+   
+module.exports = ListaDeTarefas;
